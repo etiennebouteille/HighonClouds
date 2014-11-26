@@ -1,0 +1,4 @@
+ofxGui
+ofxBlur-master
+ofxCameraFilter-master
+ofxPostProcessing-master
