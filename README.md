@@ -1,4 +1,4 @@
 HighonClouds
 ============
 
-High On Clouds aims to provid a beautiful and intuitive weather experience.
+High On Clouds aims to provide a beautiful and intuitive weather experience.
