@@ -16,7 +16,7 @@ public:
 class Particle {
 public:
     Particle();
-    void setup(ofVec3f startPos); //input d'un valeur pour réduite ou allonger la vie de la particule
+    void setup(ofVec3f startPos); //input d'un valeur pour rÃ©duire ou allonger la vie de la particule
     void update(float dt);
     void draw();
 
@@ -55,13 +55,12 @@ class testApp : public ofBaseApp{
 		ofShader shader;
 
 		vector<ofVec3f> offsets; //offsets for Perlin noise
-
 		vector<Particle> p;
+
+		vector<int> highPoints;
 
 		ofxPanel gui;
 		ofxFloatSlider windParam;
-
-		ofxPostProcessing post;
 
 		void keyPressed(int key);
 		void keyReleased(int key);
