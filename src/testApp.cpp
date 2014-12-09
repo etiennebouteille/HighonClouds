@@ -5,40 +5,33 @@
 Params param;
 
 void testApp::createNewPoint(){
-    bool born(false);
 
-    while (born == false){
-        int numVerts = mesh.getNumVertices();
-        ofVec3f vert = mesh.getVertex(checkVert);
-        float distance = vert.distance(lastPos);
-            if (vert.z > 120 && distance > 80){            //CHANGE DISTANCE TO CHANGE CLOUD DENSITY
-                float z = vert.z + ofRandom(100, 130);
-                ofVec3f pos(vert.x, vert.y, z);
-
-                Particle newP;
-                newP.setup(pos);            //Start a new particle
-                p.push_back( newP );     //Add this particle to array
-
-                cloudMesh.addVertex(pos);
-                cloudMesh.addColor(cloudCol);
-
-                lastPos = pos;
-                born = true;
-
-                ofVec3f camPos = easyCam.getPosition();
-                float camDist = camPos.distance(pos);
-                cout << camDist << endl;
-            }
-            checkVert++;
-            if (checkVert>numVerts){
-                checkVert = 0;
-            }
-        }
+    int random = ofRandom(0, 3);
+    if(random == 0){ //1 chance in 4 to change checkVertex (avoid clouds appearing in scan lines
+        checkVert += 5;
     }
+
+    cout << checkVert << endl;
+
+    if(checkVert >= highPoints.size()){
+            checkVert = 0;
+    }
+    ofVec3f vert = mesh.getVertex(highPoints[checkVert]);
+    vert.z += ofRandom(100, 130);
+
+    Particle newP;
+    newP.setup(vert);            //Start a new particle
+    p.push_back( newP );     //Add this particle to array
+
+    cloudMesh.addVertex(vert);
+    cloudMesh.addColor(cloudCol);
+
+    checkVert++;
+}
 
 
 void testApp::setup(){
-    ofSetFrameRate(60);
+    //ofSetFrameRate(60);
     recording = false;
     mesh.setMode(OF_PRIMITIVE_LINES);
     cloudMesh.setMode(OF_PRIMITIVE_LINES);
@@ -46,17 +39,14 @@ void testApp::setup(){
     image.loadImage("displace.png");
     image.resize(200, 200);
 
-    cloudCol = ofColor(50);
+    cloudCol = ofColor(230);
 
     int w = image.getWidth();
     int h = image.getHeight();
 
     gui.setup();
     gui.add(windParam.setup("wind", 5, 0, 30));
-
-    post.init(ofGetWidth(), ofGetHeight());
-    //post.createPass<DofAltPass>();
-
+    showGui = false;
 
     param.setup(windParam, 10, 0.4); //input de la vitesse du vent et du lifetime et du wiggle//TODO : GUI
 
@@ -66,6 +56,7 @@ void testApp::setup(){
 
     ///Get geography from image///
 
+    int createdVertex = 0;
     for (int y=0; y<w; y++){
         if(y%4 == 0){
         for(int x=0; x<h; x++){
@@ -77,6 +68,10 @@ void testApp::setup(){
 
             mesh.addVertex(pos);
             mesh.addColor(cloudCol);
+            if(z > 120){
+                highPoints.push_back (createdVertex);
+            }
+            createdVertex++;
         }
         }
     }
@@ -95,29 +90,28 @@ void testApp::setup(){
     cloudVerts = 0;
 
     lastPos = ofVec3f(0, 0, 0);
-    int numVerts = mesh.getNumVertices();
-    for (int i=0; i<numVerts; i++){
-        ofVec3f vert = mesh.getVertex(i);
+    for (int i=0; i<highPoints.size(); i++){
+        ofVec3f vert = mesh.getVertex(highPoints[i]);
         float distance = vert.distance(lastPos);
-        if (vert.z > 120 && distance > 80){            //CHANGE DISTANCE TO CHANGE CLOUD DENSITY
-            float z = vert.z + ofRandom(100, 130);
-            ofVec3f pos(vert.x, vert.y, z);
+            if (distance > 40){            //CHANGE DISTANCE TO CHANGE CLOUD DENSITY
+                float z = vert.z + ofRandom(100, 130);
+                ofVec3f pos(vert.x, vert.y, z);
 
-            Particle newP;
-			newP.setup(pos);            //Start a new particle
-			p.push_back( newP );     //Add this particle to array
+                Particle newP;
+                newP.setup(pos);            //Start a new particle
+                p.push_back( newP );     //Add this particle to array
 
-			cloudMesh.addVertex(pos);
-			cloudMesh.addColor(cloudCol);
+                cloudMesh.addVertex(pos);
+                cloudMesh.addColor(cloudCol);
 
-            offsets.push_back(ofVec3f(ofRandom(0, 100000), ofRandom(0, 100000), ofRandom(0, 100000)));
-            cloudVerts++;
-            lastPos = pos;
-
-        }
+                offsets.push_back(ofVec3f(ofRandom(0, 100000), ofRandom(0, 100000), ofRandom(0, 100000)));
+                cloudVerts++;
+                lastPos = pos;
+                }
     }
 
     time0 = ofGetElapsedTimef();
+    cout << "highPoints = " << highPoints.size() << endl;
 
 }
 
@@ -167,33 +161,29 @@ void testApp::update(){
 		cloudMesh.setVertex(i, vertUpdate);
 	}
 
+	//cout << highPoints.size() << endl;
+	//cout << cloudMesh.getNumVertices() << endl;
+
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    ofBackground(230);
+    ofBackground(28);
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-
-
-    post.begin(easyCam);
+    easyCam.begin();
         ofPushMatrix();
             ofTranslate(-ofGetWidth()/2, -ofGetHeight()/2);
             mesh.draw();
             cloudMesh.draw();
-            //post.debugDraw();
-            //cout << easyCam.getPosition() << endl;
             if (recording){
                 ofSaveFrame();
             }
         ofPopMatrix();
-    post.end();
+    easyCam.end();
 
     if (showGui){
     gui.draw();
     }
-
 }
 
 //--------------------------------------------------------------
@@ -204,6 +194,10 @@ void testApp::keyPressed(int key){
 
     if (key == 'h'){
         showGui = !showGui;
+    }
+
+    if (key == 's'){
+        ofSaveFrame();
     }
 
 }
@@ -261,6 +255,7 @@ void Particle::setup(ofVec3f startPos){
 
     pos = startPos;
     wind = param.wind;
+    wind.z = ofRandom(wind.z * 0.8, wind.z *1.2);
     time = 0;
     float lt = param.lifetime;
     lifetime = ofRandom(lt*0.5, lt*1.5);
@@ -293,7 +288,7 @@ void Particle::draw(){
 //--------------------------------------------------------------
 
 void Params::setup(float windInput, float lifetimeInput, float Wiggle) {
-    wind = ofVec3f(ofRandom(windInput*0.6, windInput*1.4), 0, 0);
+    wind = ofVec3f(windInput, 0, 0);
     lifetime = lifetimeInput;
     wiggle = Wiggle;
 
