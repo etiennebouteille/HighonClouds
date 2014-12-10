@@ -16,7 +16,7 @@ public:
 class Particle {
 public:
     Particle();
-    void setup(ofVec3f startPos); //input d'un valeur pour rÃ©duire ou allonger la vie de la particule
+    void setup(ofVec3f startPos); //input d'un valeur pour réduire ou allonger la vie de la particule
     void update(float dt);
     void draw();
 
@@ -51,6 +51,7 @@ class testApp : public ofBaseApp{
 		ofColor cloudCol;
 
 		ofVec3f lastPos;
+		ofVec3f lastCenter; //center of the map's field of view
 
 		ofShader shader;
 
@@ -61,6 +62,9 @@ class testApp : public ofBaseApp{
 
 		ofxPanel gui;
 		ofxFloatSlider windParam;
+		ofxVec3Slider center;
+		ofxFloatSlider radius;
+
 
 		void keyPressed(int key);
 		void keyReleased(int key);
