@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "ofxPostProcessing.h"
+#include "ofxTerrain.h"
 
 
 class Params { //Pas sur que ca soit utile
@@ -35,6 +36,7 @@ class testApp : public ofBaseApp{
 		void update();
 		void draw();
 		void createNewPoint();
+		void translateCam();
 
 		bool recording;
 		bool showGui;
@@ -42,9 +44,13 @@ class testApp : public ofBaseApp{
 		int cloudVerts;
 		int checkVert;
 
+		ofxTerrain terrain;
+
         float time0;
 		ofMesh mesh;
 		ofMesh cloudMesh;
+		ofMesh overlay;
+
 		ofImage image;
 		ofEasyCam easyCam;
 
@@ -64,7 +70,9 @@ class testApp : public ofBaseApp{
 		ofxFloatSlider windParam;
 		ofxVec3Slider center;
 		ofxFloatSlider radius;
+		ofxIntSlider maxCloudHeight, minCloudHeight;
 
+		float scale; //scale for geography
 
 		void keyPressed(int key);
 		void keyReleased(int key);

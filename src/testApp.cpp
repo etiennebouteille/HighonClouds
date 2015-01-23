@@ -19,7 +19,7 @@ void testApp::createNewPoint(){
     while (vertAdded == false){
     ofVec3f vert = mesh.getVertex(highPoints[checkVert]);
     if(vert.distance(center) < radius){
-    vert.z += ofRandom(100*0.015, 3000*0.015);
+    vert.z += ofRandom(maxCloudHeight*scale, minCloudHeight*scale);
 
     Particle newP;
     newP.setup(vert);            //Start a new particle
@@ -36,6 +36,14 @@ void testApp::createNewPoint(){
     }
 }
 
+void testApp::translateCam(){
+        ofVec3f targetVert = mesh.getVertex(12000);
+        ofPushMatrix();
+        easyCam.setPosition(easyCam.getX(), targetVert.y, easyCam.getZ());
+        easyCam.setTarget(targetVert);
+        ofPopMatrix();
+}
+
 
 void testApp::setup(){
     //ofSetFrameRate(60);
@@ -47,19 +55,24 @@ void testApp::setup(){
     image.loadImage("displace.png");
     image.resize(600, 600);
 
-    cloudCol = ofColor(230, 230, 230, 220);
+    cloudCol = ofColor(230, 230, 230, 200);
+    //cloudCol = ofColor(229, 211, 214, 200);
 
     gui.setup();
     gui.add(windParam.setup("wind", 5, 0, 30));
     gui.add(center.setup("Center", ofVec3f(1200, 1200, 0), ofVec3f(0, 0, -500), ofVec3f(2400, 2400, 500)));
-    gui.add(radius.setup("Center", 800, 0, 1500));
+    gui.add(radius.setup("Radius", 800, 0, 1500));
+    gui.add(maxCloudHeight.setup("maxCloudHeight", 3000, 0, 6000));
+    gui.add(minCloudHeight.setup("minCloudHeight", 1500, 0, 4000));
     showGui = false;
 
     param.setup(windParam, 10, 0.6); //input de la vitesse du vent et du lifetime et du wiggle//TODO : GUI
 
+    terrain.setup();
+
     checkVert = 0;
 
-
+    scale = 0.04;
 
     ///Get geography from image///
 
@@ -73,14 +86,14 @@ void testApp::setup(){
         for(int x=0; x<h; x++){
             ofColor col = image.getColor(x, y);
             float intensity = col.getLightness();
-            float z = ofMap(intensity, 0, 255, 0, 4810*0.015);  //converts lightness of the pixel to height of the vertex
+            float z = ofMap(intensity, 0, 255, 0, 4810*scale);  //converts lightness of the pixel to height of the vertex
 
-            ofVec3f pos(x*4, y*4, z);
+            ofVec3f pos(x*6, y*6, z);
             mapColor.a = ofMap(intensity, 0, 220, 100, 255);  //makes the flat areas more transparent
 
             mesh.addVertex(pos);
             mesh.addColor(mapColor);
-            if(z > 2500*0.015 && x%4 == 0){
+            if(z > 2500*scale && x%4 == 0){
                 highPoints.push_back (createdVertex);  //Array containing the points above a certain altitude
             }
             createdVertex++;
@@ -106,7 +119,7 @@ void testApp::setup(){
         ofVec3f vert = mesh.getVertex(highPoints[i]);
         float distance = vert.distance(lastPos);
             if (distance > 40){            //CHANGE DISTANCE TO CHANGE CLOUD DENSITY --doesn't work anymore I think
-                float z = vert.z + ofRandom(100*0.015, 3000*0.015);
+                float z = vert.z + ofRandom(maxCloudHeight*scale, minCloudHeight*scale);
                 ofVec3f pos(vert.x, vert.y, z);
 
                 Particle newP;
@@ -201,6 +214,7 @@ void testApp::draw(){
     easyCam.begin();
         ofPushMatrix();
             ofTranslate(-ofGetWidth()*0.8, -ofGetHeight());
+            //terrain.draw();
             mesh.draw();
             cloudMesh.draw();
             if (recording){
@@ -213,7 +227,7 @@ void testApp::draw(){
     gui.draw();
     }
 
-    ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
+    //ofDrawBitmapString(ofToString(ofGetFrameRate())+"fps", 10, 15);
 }
 
 //--------------------------------------------------------------
@@ -228,6 +242,10 @@ void testApp::keyPressed(int key){
 
     if (key == 's'){
         ofSaveFrame();
+    }
+
+    if (key == 't'){
+        translateCam();
     }
 
 }

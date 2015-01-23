@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
@@ -6,13 +6,13 @@
 		<Option makefile="makefile" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="addons\;src\;" />
+		<Option virtualFolders="addons\;src\;addons\ofxPostProcessing-master\src\;addons\ofxGui\src\;" />
 		<Build>
 			<Target title="release">
-				<Option output="bin\$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
-				<Option object_output="obj\Release" />
-				<Option external_deps="..\..\..\libs\openFrameworksCompiled\lib\win_cb\openFrameworks.lib;" />
+				<Option object_output="obj/Release" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/win_cb/openFrameworks.lib;" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
@@ -25,10 +25,10 @@
 				</Linker>
 			</Target>
 			<Target title="debug">
-				<Option output="bin\$(PROJECT_NAME)_DEBUG" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/$(PROJECT_NAME)_DEBUG" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
-				<Option object_output="obj\Debug\" />
-				<Option external_deps="..\..\..\libs\openFrameworksCompiled\lib\win_cb\openFrameworksDebug.lib;" />
+				<Option object_output="obj/Debug/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/win_cb/openFrameworksDebug.lib;" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
@@ -42,38 +42,36 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wno-multichar" />
-			<Add directory="..\..\..\libs\glu\include" />
-			<Add directory="..\..\..\libs\freetype\include" />
-			<Add directory="..\..\..\libs\freetype\include\freetype2" />
-			<Add directory="..\..\..\libs\FreeImage\include" />
-			<Add directory="..\..\..\libs\quicktime\include" />
-			<Add directory="..\..\..\libs\rtAudio\include" />
-			<Add directory="..\..\..\libs\fmodex\include" />
-			<Add directory="..\..\..\libs\videoInput\include" />
-			<Add directory="..\..\..\libs\glew\include" />
-			<Add directory="..\..\..\libs\glut\include" />
-			<Add directory="..\..\..\libs\glfw\include" />
-			<Add directory="..\..\..\libs\openFrameworks" />
-			<Add directory="..\..\..\libs\openFrameworks\3d" />
-			<Add directory="..\..\..\libs\openFrameworks\app" />
-			<Add directory="..\..\..\libs\openFrameworks\communication" />
-			<Add directory="..\..\..\libs\openFrameworks\events" />
-			<Add directory="..\..\..\libs\openFrameworks\gl" />
-			<Add directory="..\..\..\libs\openFrameworks\graphics" />
-			<Add directory="..\..\..\libs\openFrameworks\math" />
-			<Add directory="..\..\..\libs\openFrameworks\sound" />
-			<Add directory="..\..\..\libs\openFrameworks\types" />
-			<Add directory="..\..\..\libs\openFrameworks\utils" />
-			<Add directory="..\..\..\libs\openFrameworks\video" />
-			<Add directory="..\..\..\libs\poco\include" />
-			<Add directory="..\..\..\libs\tess2\include" />
-			<Add directory="..\..\..\libs\cairo\include\cairo" />
+			<Add directory="../../../libs/glu/include" />
+			<Add directory="../../../libs/freetype/include" />
+			<Add directory="../../../libs/freetype/include/freetype2" />
+			<Add directory="../../../libs/FreeImage/include" />
+			<Add directory="../../../libs/quicktime/include" />
+			<Add directory="../../../libs/rtAudio/include" />
+			<Add directory="../../../libs/fmodex/include" />
+			<Add directory="../../../libs/videoInput/include" />
+			<Add directory="../../../libs/glew/include" />
+			<Add directory="../../../libs/glut/include" />
+			<Add directory="../../../libs/glfw/include" />
+			<Add directory="../../../libs/openFrameworks" />
+			<Add directory="../../../libs/openFrameworks/3d" />
+			<Add directory="../../../libs/openFrameworks/app" />
+			<Add directory="../../../libs/openFrameworks/communication" />
+			<Add directory="../../../libs/openFrameworks/events" />
+			<Add directory="../../../libs/openFrameworks/gl" />
+			<Add directory="../../../libs/openFrameworks/graphics" />
+			<Add directory="../../../libs/openFrameworks/math" />
+			<Add directory="../../../libs/openFrameworks/sound" />
+			<Add directory="../../../libs/openFrameworks/types" />
+			<Add directory="../../../libs/openFrameworks/utils" />
+			<Add directory="../../../libs/openFrameworks/video" />
+			<Add directory="../../../libs/poco/include" />
+			<Add directory="../../../libs/tess2/include" />
+			<Add directory="../../../libs/cairo/include/cairo" />
 			<Add directory="../../../addons/ofxGui/libs" />
 			<Add directory="../../../addons/ofxGui/src" />
-			<Add directory="../../../addons\ofxGui\src" />
 			<Add directory="../../../addons/ofxPostProcessing-master/libs" />
 			<Add directory="../../../addons/ofxPostProcessing-master/src" />
-			<Add directory="../../../addons\ofxPostProcessing-master\src" />
 		</Compiler>
 		<Linker>
 			<Add library="..\..\..\libs\FreeImage\lib\win_cb\FreeImage.lib" />
@@ -117,20 +115,222 @@
 			<Add library="Comdlg32" />
 		</Linker>
 		<ExtraCommands>
-			<Add after="xcopy /e /i /y &quot;$(PROJECT_DIR)..\..\..\export\win_cb\*.dll&quot;  &quot;$(PROJECT_DIR)bin&quot;" />
-			<Add after="cmd /c if not exist &quot;$(PROJECT_DIR)bin/data&quot; mkdir &quot;$(PROJECT_DIR)bin/data&quot;" />
+			<Add after='xcopy /e /i /y &quot;$(PROJECT_DIR)..\..\..\export\win_cb\*.dll&quot;  &quot;$(PROJECT_DIR)bin&quot;' />
+			<Add after='cmd /c if not exist &quot;$(PROJECT_DIR)bin/data&quot; mkdir &quot;$(PROJECT_DIR)bin/data&quot;' />
 			<Mode after="always" />
 		</ExtraCommands>
+		<Unit filename="../../../addons/ofxGui/src/ofxBaseGui.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxBaseGui.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxButton.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxButton.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxGui.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxGuiGroup.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxGuiGroup.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxLabel.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxLabel.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxPanel.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxPanel.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxSlider.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxSlider.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxSliderGroup.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxSliderGroup.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxToggle.cpp">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGui/src/ofxToggle.h">
+			<Option virtualFolder="addons/ofxGui/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/BleachBypassPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/BleachBypassPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/BloomPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/BloomPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ContrastPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ContrastPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ConvolutionPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ConvolutionPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/DofAltPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/DofAltPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/DofPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/DofPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/EdgePass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/EdgePass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/FakeSSSPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/FakeSSSPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/FxaaPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/FxaaPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/GodRaysPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/GodRaysPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/HorizontalTiltShifPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/HorizontalTiltShifPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/KaleidoscopePass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/KaleidoscopePass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/LUTPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/LUTPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/LimbDarkeningPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/LimbDarkeningPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/NoiseWarpPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/NoiseWarpPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/PixelatePass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/PixelatePass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/PostProcessing.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/PostProcessing.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/RGBShiftPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/RGBShiftPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/RenderPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/RenderPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/RimHighlightingPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/RimHighlightingPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/SSAOPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/SSAOPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ToonPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ToonPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/VerticalTiltShifPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/VerticalTiltShifPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ZoomBlurPass.cpp">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ZoomBlurPass.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxPostProcessing-master/src/ofxPostProcessing.h">
+			<Option virtualFolder="addons/ofxPostProcessing-master/src" />
+		</Unit>
 		<Unit filename="icon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
-		<Unit filename="src\main.cpp">
+		<Unit filename="src/main.cpp">
 			<Option virtualFolder="src" />
 		</Unit>
-		<Unit filename="src\testApp.cpp">
+		<Unit filename="src/ofxTerrain.cpp" />
+		<Unit filename="src/ofxTerrain.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="src/testApp.cpp">
 			<Option virtualFolder="src" />
 		</Unit>
-		<Unit filename="src\testApp.h">
+		<Unit filename="src/testApp.h">
 			<Option virtualFolder="src" />
 		</Unit>
 		<Extensions>
@@ -138,203 +338,5 @@
 			<debugger />
 			<envvars />
 		</Extensions>
-		<Unit filename="../../../addons\ofxGui\src\ofxBaseGui.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxBaseGui.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxButton.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxButton.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxGui.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxGuiGroup.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxGuiGroup.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxLabel.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxLabel.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxPanel.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxPanel.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxSlider.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxSlider.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxSliderGroup.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxSliderGroup.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxToggle.cpp">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxGui\src\ofxToggle.h">
-			<Option virtualFolder="addons\ofxGui\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\BleachBypassPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\BleachBypassPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\BloomPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\BloomPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ContrastPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ContrastPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ConvolutionPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ConvolutionPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\DofAltPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\DofAltPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\DofPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\DofPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\EdgePass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\EdgePass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\FakeSSSPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\FakeSSSPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\FxaaPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\FxaaPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\GodRaysPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\GodRaysPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\HorizontalTiltShifPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\HorizontalTiltShifPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\KaleidoscopePass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\KaleidoscopePass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\LimbDarkeningPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\LimbDarkeningPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\LUTPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\LUTPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\NoiseWarpPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\NoiseWarpPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ofxPostProcessing.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\PixelatePass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\PixelatePass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\PostProcessing.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\PostProcessing.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\RenderPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\RenderPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\RGBShiftPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\RGBShiftPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\RimHighlightingPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\RimHighlightingPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\SSAOPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\SSAOPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ToonPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ToonPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\VerticalTiltShifPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\VerticalTiltShifPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ZoomBlurPass.cpp">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
-		<Unit filename="../../../addons\ofxPostProcessing-master\src\ZoomBlurPass.h">
-			<Option virtualFolder="addons\ofxPostProcessing-master\src" />
-		</Unit>
 	</Project>
 </CodeBlocks_project_file>

@@ -1766,15 +1766,23 @@
 
 1376288012 source:c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\icon.rc
 
-1418144014 source:c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\main.cpp
+1418385362 source:c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\main.cpp
 	"ofMain.h"
 	"testApp.h"
 
-1418226188 c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\testapp.h
+1421159847 c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\testapp.h
 	"ofMain.h"
 	"ofxGui.h"
 	"ofxPostProcessing.h"
+	"ofxTerrain.h"
 
-1418241382 source:c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\testapp.cpp
+1421248965 source:c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\testapp.cpp
 	"testApp.h"
+
+1421246065 c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\ofxterrain.h
+	"ofMain.h"
+
+1421249226 source:c:\users\etienne\documents\openframeworks\of_v0.8.0_win_cb_release\apps\clouds\high-on-clouds\src\ofxterrain.cpp
+	"ofxTerrain.h"
+	"ofMain.h"
 
