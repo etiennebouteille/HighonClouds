@@ -71,6 +71,7 @@ class testApp : public ofBaseApp{
 		ofxVec3Slider center;
 		ofxFloatSlider radius;
 		ofxIntSlider maxCloudHeight, minCloudHeight;
+		ofxIntSlider vertexTarget;
 
 		float scale; //scale for geography
 

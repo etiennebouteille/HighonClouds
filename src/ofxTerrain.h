@@ -9,9 +9,14 @@ class ofxTerrain
 
     void setup();
     void draw();
+    void displayLocations(ofEasyCam camera);
+    void addLocation(ofVec3f vertex, string title);
 
     ofMesh mesh;
     ofImage image;
+    vector<string> locationsName;
+    vector<ofVec3f> locationsVert;
+    ofEasyCam easyCam;
 };
 
 

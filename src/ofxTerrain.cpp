@@ -20,9 +20,11 @@ void ofxTerrain::setup()
 
     int w = image.getWidth();
     int h = image.getHeight();
-    for (int y=0; y<w; y++){
+    for (int y=0; y<w; y++)
+    {
         //if(y%4 == 0){
-        for(int x=0; x<h; x++){
+        for(int x=0; x<h; x++)
+        {
             ofColor col = image.getColor(x, y);
             float intensity = col.getLightness();
             float z = ofMap(intensity, 0, 255, 0, 4810*scale);  //converts lightness of the pixel to height of the vertex
@@ -32,7 +34,8 @@ void ofxTerrain::setup()
 
             mesh.addVertex(pos);
             mesh.addColor(mapColor);
-            if(z > 2500*scale && x%4 == 0){
+            if(z > 2500*scale && x%4 == 0)
+            {
                 highPoints.push_back (createdVertex);  //Array containing the points above a certain altitude
             }
             createdVertex++;
@@ -42,8 +45,10 @@ void ofxTerrain::setup()
 
     ///Draw Geography
 
-    for (int i=0; i<600; i++){
-        for (int j=1; j<600; j++){
+    for (int i=0; i<600; i++)
+    {
+        for (int j=1; j<600; j++)
+        {
             mesh.addIndex(i*600+(j-1));
             mesh.addIndex(i*600+j);
         }
@@ -53,4 +58,25 @@ void ofxTerrain::setup()
 void ofxTerrain::draw()
 {
     mesh.draw();
+}
+
+void ofxTerrain::addLocation(ofVec3f vertex, string title)
+{
+    locationsVert.push_back(vertex);
+    locationsName.push_back(title);
+}
+
+void ofxTerrain::displayLocations(ofEasyCam camera)
+{
+    //easyCam.setTransformMatrix(projMatrix);
+    for(int i=0; i<locationsVert.size(); i++){
+    ofVec3f pos = camera.worldToScreen(locationsVert[i]);
+    cout << pos << endl;
+
+    ofFill();
+    ofSetColor(202, 88, 82, 180);
+    ofCircle(pos.x-5, pos.y+5, 3, 3);
+    ofSetColor(255, 0, 0, 255);
+    ofDrawBitmapString(locationsName[i], pos.x, pos.y);
+    }
 }
