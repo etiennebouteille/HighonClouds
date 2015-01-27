@@ -1,17 +1,18 @@
 #include "ofxTerrain.h"
-#include "ofMain.h"
+#include "Particle.h"
 
-using namespace std;
+//using namespace std;
 
 void ofxTerrain::setup()
 {
     mesh.setMode(OF_PRIMITIVE_LINES);
-    vector<int> highPoints;
+    cloudMesh.setMode(OF_PRIMITIVE_LINES);
 
     image.loadImage("displace.png");
     image.resize(600, 600);
 
-    float scale = 0.04;
+    scale = 0.04;
+    cloudSetup = false;
 
     ///Get geography from image///
 
@@ -36,7 +37,7 @@ void ofxTerrain::setup()
             mesh.addColor(mapColor);
             if(z > 2500*scale && x%4 == 0)
             {
-                highPoints.push_back (createdVertex);  //Array containing the points above a certain altitude
+                highPoints.push_back(createdVertex);  //Array containing the points above a certain altitude
             }
             createdVertex++;
         }
@@ -58,10 +59,164 @@ void ofxTerrain::setup()
 void ofxTerrain::draw()
 {
     mesh.draw();
+
+    if(cloudSetup)
+    {
+       cloudMesh.draw();
+       //cout << highPoints.size() << endl;
+    }
+
 }
 
-void ofxTerrain::addLocation(ofVec3f vertex, string title)
+void ofxTerrain::setupClouds()
 {
+    cloudCol = ofColor(230, 230, 230, 200);
+    checkVert = 0;
+    cloudSetup = true;
+
+    ///Generation des nuages
+
+    cloudVerts = 0;
+
+    lastPos = ofVec3f(0, 0, 0);
+    for (int i=0; i<highPoints.size(); i++)
+    {
+        ofVec3f vert = mesh.getVertex(highPoints[i]);
+        float distance = vert.distance(lastPos);
+        if (distance > 40)             //CHANGE DISTANCE TO CHANGE CLOUD DENSITY --doesn't work anymore I think
+        {
+            float z = vert.z + ofRandom(3000*scale, 1500*scale);
+            ofVec3f pos(vert.x, vert.y, z);
+
+            Particle newP;
+            newP.setup(pos);            //Start a new particle
+            p.push_back( newP );     //Add this particle to array
+
+            cloudMesh.addVertex(pos);
+            cloudMesh.addColor(cloudCol);
+
+            //offsets.push_back(ofVec3f(ofRandom(0, 100000), ofRandom(0, 100000), ofRandom(0, 100000)));
+            cloudVerts++;
+            lastPos = pos;
+        }
+    }
+
+    time0 = ofGetElapsedTimef();
+}
+
+void ofxTerrain::updateClouds(int MinCloudHeight, int MaxCloudHeight, ofVec3f Center, int Radius)
+{
+    minCloudHeight = MinCloudHeight;
+    maxCloudHeight = MaxCloudHeight;
+    center = Center;
+    radius = Radius;
+
+    ///Time initialisation///
+    float time = ofGetElapsedTimef();
+    float dt = ofClamp( time - time0, 0, 0.1 );
+    time0 = time;
+
+
+    ///Remove dead particle and replace them///
+    int i=0;
+    while (i < p.size())
+    {
+        if ( !p[i].live )
+        {
+            p.erase( p.begin() + i );
+            cloudMesh.removeVertex(i);
+            createNewPoint();
+        }
+        else
+        {
+            i++;
+        }
+    }
+
+    ///Draw cloudpoint///
+    cloudMesh.clearIndices();
+    for (int a=0; a<p.size(); a++)
+    {
+        ofVec3f verta = cloudMesh.getVertex(a);
+        for (int b=a+1; b<cloudVerts; b++)
+        {
+            ofVec3f vertb = cloudMesh.getVertex(b);
+            float distance = verta.distance(vertb);
+            if (distance <= 40)
+            {
+                cloudMesh.addIndex(a);
+                cloudMesh.addIndex(b);
+            }
+        }
+    }
+
+
+    ///Refresh vertex position///
+    for (int i=0; i<p.size(); i++)
+    {
+        p[i].update( dt );
+        ofVec3f vertUpdate = p[i].pos;
+        cloudMesh.setVertex(i, vertUpdate);
+    }
+
+    ///Update map visible radius
+    int numVerts = mesh.getNumVertices();
+    ofColor mapColor(230, 230, 230, 0);
+    //ofVec3f centerVec(center->x, center->y, center->z);
+        for(int i=0; i<numVerts; i++)
+        {
+            ofVec3f vert = mesh.getVertex(i);
+            float distance = ofMap(vert.distance(Center), 0, radius, 255, 0, true);
+            mapColor.a = distance;
+            mesh.setColor(i, mapColor);
+            /*if(distance < 10){
+                mesh.setVertex(i, ofVec3f(vert.x, vert.y, 0));
+            }*/
+
+        }
+}
+
+void ofxTerrain::createNewPoint()
+{
+    bool vertAdded = false;
+
+    int random = ofRandom(0, 3);
+    if(random == 0)  //1 chance in 4 to change checkVertex (avoid clouds appearing in scan lines)
+    {
+        checkVert += 20;
+    }
+
+    if(checkVert >= highPoints.size())
+    {
+        checkVert = 0;
+    }
+
+    while (vertAdded == false)
+    {
+        ofVec3f vert = mesh.getVertex(highPoints[checkVert]);
+        if(vert.distance(center) < radius)
+        {
+            vert.z += ofRandom(maxCloudHeight*scale, minCloudHeight*scale);
+
+            Particle newP;
+            newP.setup(vert);            //Start a new particle
+            p.push_back( newP );     //Add this particle to array
+
+            cloudMesh.addVertex(vert);
+            cloudMesh.addColor(cloudCol);
+            vertAdded = true;
+        }
+        checkVert++;
+        if(checkVert >= highPoints.size())
+        {
+            checkVert = 0;
+        }
+    }
+}
+
+void ofxTerrain::addLocation(int Vertex, string title)
+{
+    ofVec3f vertex = mesh.getVertex(Vertex);
     locationsVert.push_back(vertex);
     locationsName.push_back(title);
 }
@@ -69,14 +224,14 @@ void ofxTerrain::addLocation(ofVec3f vertex, string title)
 void ofxTerrain::displayLocations(ofEasyCam camera)
 {
     //easyCam.setTransformMatrix(projMatrix);
-    for(int i=0; i<locationsVert.size(); i++){
-    ofVec3f pos = camera.worldToScreen(locationsVert[i]);
-    cout << pos << endl;
+    for(int i=0; i<locationsVert.size(); i++)
+    {
+        ofVec3f pos = camera.worldToScreen(locationsVert[i]);
 
-    ofFill();
-    ofSetColor(202, 88, 82, 180);
-    ofCircle(pos.x-5, pos.y+5, 3, 3);
-    ofSetColor(255, 0, 0, 255);
-    ofDrawBitmapString(locationsName[i], pos.x, pos.y);
+        ofFill();
+        ofSetColor(202, 88, 82, 180);
+        ofCircle(pos.x-5, pos.y+5, 3, 3);
+        ofSetColor(255, 0, 0, 255);
+        ofDrawBitmapString(locationsName[i], pos.x, pos.y);
     }
 }
