@@ -34,7 +34,11 @@ void Particle::update(float dt)
             live = false;   //Particle is now considered as died
         }
     }
+}
 
+float Particle::timeLeft()
+{
+    return (time/lifetime);
 }
 
 void Particle::draw()

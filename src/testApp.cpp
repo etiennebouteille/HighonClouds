@@ -34,6 +34,8 @@ void testApp::setup()
     terrain.setupClouds();
 
     terrain.addLocation(vertexTarget, "Chamonix");
+    terrain.addLocation(76900, "Annecy");
+    terrain.addLocation(87000, "Courmayeur");
 }
 
 //--------------------------------------------------------------

@@ -5,6 +5,14 @@
 
 void ofxTerrain::setup()
 {
+    ///Font Setup///
+    ofTrueTypeFont::setGlobalDpi(72);
+
+	locationsFont.loadFont("MavenProMedium.otf", 18, true, true);
+	locationsFont.setLineHeight(18.0f);
+	locationsFont.setLetterSpacing(1.037);
+
+    ///Terrain Setup///
     mesh.setMode(OF_PRIMITIVE_LINES);
     cloudMesh.setMode(OF_PRIMITIVE_LINES);
 
@@ -111,6 +119,8 @@ void ofxTerrain::updateClouds(int MinCloudHeight, int MaxCloudHeight, ofVec3f Ce
     center = Center;
     radius = Radius;
 
+    ofColor transparentCloud = ofColor(230, 230, 230, 0);
+
     ///Time initialisation///
     float time = ofGetElapsedTimef();
     float dt = ofClamp( time - time0, 0, 0.1 );
@@ -155,8 +165,8 @@ void ofxTerrain::updateClouds(int MinCloudHeight, int MaxCloudHeight, ofVec3f Ce
     for (int i=0; i<p.size(); i++)
     {
         p[i].update( dt );
-        ofVec3f vertUpdate = p[i].pos;
-        cloudMesh.setVertex(i, vertUpdate);
+        cloudMesh.setVertex(i, p[i].pos);
+        cloudMesh.setColor(i, cloudCol.getLerped(transparentCloud, p[i].timeLeft()));
     }
 
     ///Update map visible radius
@@ -199,7 +209,7 @@ void ofxTerrain::createNewPoint()
             vert.z += ofRandom(maxCloudHeight*scale, minCloudHeight*scale);
 
             Particle newP;
-            newP.setup(vert);            //Start a new particle
+            newP.setup(vert);        //Start a new particle
             p.push_back( newP );     //Add this particle to array
 
             cloudMesh.addVertex(vert);
@@ -223,15 +233,20 @@ void ofxTerrain::addLocation(int Vertex, string title)
 
 void ofxTerrain::displayLocations(ofEasyCam camera)
 {
-    //easyCam.setTransformMatrix(projMatrix);
     for(int i=0; i<locationsVert.size(); i++)
     {
         ofVec3f pos = camera.worldToScreen(locationsVert[i]);
 
+        //Point
         ofFill();
-        ofSetColor(202, 88, 82, 180);
+        ofSetColor(202, 88, 82, 190);
         ofCircle(pos.x-5, pos.y+5, 3, 3);
-        ofSetColor(255, 0, 0, 255);
-        ofDrawBitmapString(locationsName[i], pos.x, pos.y);
+        //Rectangle
+        ofRectangle rect = locationsFont.getStringBoundingBox(locationsName[i], pos.x, pos.y);
+        ofSetColor(240, 255);
+        ofRectRounded(rect.x-5, rect.y-4, rect.width*1.1, rect.height*1.4, 5);
+        //String
+        ofSetColor(202, 88, 82, 255);
+        locationsFont.drawString(locationsName[i], pos.x, pos.y);
     }
 }

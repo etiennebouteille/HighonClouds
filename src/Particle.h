@@ -18,6 +18,7 @@ public:
     void setup(ofVec3f startPos); //input d'une valeur pour réduire ou allonger la vie de la particule
     void update(float dt);
     void draw();
+    float timeLeft();
 
     ofVec3f pos;
     ofVec3f wind;

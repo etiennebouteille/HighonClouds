@@ -36,6 +36,9 @@ class ofxTerrain
     vector<string> locationsName;
     vector<ofVec3f> locationsVert;
     ofEasyCam easyCam;
+
+    ofTrueTypeFont locationsFont;
+
 };
 
 
